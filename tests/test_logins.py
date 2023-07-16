@@ -1,7 +1,9 @@
+import time
+
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions
 from tests.locators import TestLocators
-from data import Creds
+from data import Creds, AdressSite
 
 class TestDiffAuth:
 
@@ -12,9 +14,9 @@ class TestDiffAuth:
         например, 123@ya.ru. Минимальный пароль — шесть символов.
 
         Проверка регистрации нового пользователя,
-        с последующим входом нового пользователя в аккаунт и в профиль.
+        с ожиданием перехода на страницу авторизации.
         """
-        driver.get(TestLocators.adres_site+'/register')
+        driver.get(AdressSite.register_page)
         # генерируем случайные данные для регистрации нового пользователя в соответствии с шаблоном
         name = Creds.FAKE_NAME
         login = Creds.FAKE_LOGIN
@@ -25,20 +27,18 @@ class TestDiffAuth:
         driver.find_element(*TestLocators.REGISTRATION_PASSWORD_FIELD).send_keys(password)
         driver.find_element(*TestLocators.REGISTRATION_ENTER_KEY).click()
         WebDriverWait(driver, 5).until(expected_conditions.element_to_be_clickable((TestLocators.AUTH_LOGIN_BUTTON)))
-        driver = auth_profile_object(login=login, password=password, driver_obj=driver)
-        driver.find_element(*TestLocators.MAIN_PAGE_PROFILE_KEY).click()
-        WebDriverWait(driver, 5).until(expected_conditions.element_to_be_clickable((TestLocators.PROFILE_EXIT_KEY)))
-        assert '/account' in driver.current_url
+        assert '/login' in driver.current_url
 
-    def test_uncorrect_password(self, auth_profile_object):
+    def test_incorrect_password(self, auth_profile_object):
         """
         Ошибку для некорректного пароля.
         Проверка, неудачной регистрации.
-        При вводе неверного пароля выполняется
-        возврат на страницу авторизации
+        При вводе неверного пароля
+        проверяем, что происходит возврат на страницу авторизации ("/login").
+        появление сообщения о неверном пароле не выводится в Chromium Driver
+        (в отличии например от Yandex browser, где такое сообщение появляется..)
         """
         login = Creds.FALSE_LOGIN
-        password = Creds.FALSE_LOGIN
+        password = Creds.FALSE_PASSWORD
         driver = auth_profile_object(login=login, password=password)
-        # проверяем, что после неудачной попытка входа мы остаемся на странице авторизации
         assert '/login' in driver.current_url

@@ -1,7 +1,7 @@
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions
 from tests.locators import TestLocators
-
+from data import AdressSite
 
 class TestProfile:
 
@@ -25,7 +25,7 @@ class TestProfile:
         driver = auth_profile_object()
         driver.find_element(*TestLocators.MAIN_PAGE_PROFILE_KEY).click()
         driver.find_element(*TestLocators.CONSTRUCTOR_LINK).click()
-        assert TestLocators.adres_site in driver.current_url
+        assert AdressSite.main_page in driver.current_url
 
     def test_move_from_profile_logo_click(self, auth_profile_object):
         """
@@ -36,4 +36,4 @@ class TestProfile:
         driver = auth_profile_object()
         driver.find_element(*TestLocators.MAIN_PAGE_PROFILE_KEY).click()
         driver.find_element(*TestLocators.LOGO_LINK).click()
-        assert TestLocators.adres_site in driver.current_url
+        assert AdressSite.main_page in driver.current_url

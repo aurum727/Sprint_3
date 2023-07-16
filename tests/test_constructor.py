@@ -16,10 +16,6 @@ class TestConstructor:
             until(expected_conditions.visibility_of_element_located((TestLocators.ACTIVE_BOOKMARK_BRIOCHE)))
 
         is_active_class = driver.find_element(*TestLocators.ACTIVE_BOOKMARK_BRIOCHE).get_attribute('class')
-        if 'tab_tab_type_current__' not in is_active_class:
-            driver.find_element(*TestLocators.ACTIVE_BOOKMARK_BRIOCHE).click()
-            is_active_class = driver.find_element(*TestLocators.ACTIVE_BOOKMARK_BRIOCHE).get_attribute('class')
-
         assert 'tab_tab_type_current__' in is_active_class
 
     def test_sauce(self, auth_profile_object):
@@ -32,11 +28,8 @@ class TestConstructor:
         WebDriverWait(driver, 5). \
             until(expected_conditions.visibility_of_element_located((TestLocators.ACTIVE_BOOKMARK_SAUCE)))
 
+        driver.find_element(*TestLocators.ACTIVE_BOOKMARK_SAUCE).click()
         is_active_class = driver.find_element(*TestLocators.ACTIVE_BOOKMARK_SAUCE).get_attribute('class')
-        if 'tab_tab_type_current__' not in is_active_class:
-            driver.find_element(*TestLocators.ACTIVE_BOOKMARK_SAUCE).click()
-            is_active_class = driver.find_element(*TestLocators.ACTIVE_BOOKMARK_SAUCE).get_attribute('class')
-
         assert 'tab_tab_type_current__' in is_active_class
 
     def test_topping(self, auth_profile_object):
@@ -49,9 +42,6 @@ class TestConstructor:
         WebDriverWait(driver, 5). \
             until(expected_conditions.visibility_of_element_located((TestLocators.ACTIVE_BOOKMARK_TOPPINGS)))
 
+        driver.find_element(*TestLocators.ACTIVE_BOOKMARK_TOPPINGS).click()
         is_active_class = driver.find_element(*TestLocators.ACTIVE_BOOKMARK_TOPPINGS).get_attribute('class')
-        if 'tab_tab_type_current__' not in is_active_class:
-            driver.find_element(*TestLocators.ACTIVE_BOOKMARK_TOPPINGS).click()
-            is_active_class = driver.find_element(*TestLocators.ACTIVE_BOOKMARK_TOPPINGS).get_attribute('class')
-
         assert 'tab_tab_type_current__' in is_active_class
