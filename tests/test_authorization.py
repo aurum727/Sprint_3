@@ -4,7 +4,7 @@ from tests.locators import TestLocators
 from data import Creds
 from urls import AdressSite
 
-class TestDiffInputs:
+class TestAutorization:
 
     def test_auth_main_page(self, driver, auth_profile_object):
         """
