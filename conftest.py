@@ -2,7 +2,8 @@ import pytest
 # импортировали пакет Selenium WebDriver
 from selenium import webdriver
 from tests.locators import TestLocators
-from data import Creds, AdressSite
+from data import Creds
+from urls import AdressSite
 
 @pytest.fixture(scope='function')
 def driver():

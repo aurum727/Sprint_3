@@ -1,7 +1,8 @@
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions
 from tests.locators import TestLocators
-from data import Creds, AdressSite
+from data import Creds
+from urls import AdressSite
 
 class TestDiffInputs:
 
